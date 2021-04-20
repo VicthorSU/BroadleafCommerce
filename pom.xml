@@ -316,6 +316,23 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-failsafe-plugin</artifactId>
+              <version>2.14.1</version>
+              <configuration>
+                <reuseForks>true</reuseForks>
+                <argLine>${argLine}-Xmx4096m -XX:MaxPermSize=512M ${itCoverageAgent}</argLine>
+              </configuration>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>integration-test</goal>
+                    <goal>verify</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
             <!-- Jacoco Code Coverage Plugin             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -392,7 +409,8 @@
                         </goals>
                         <configuration>
                             <destFile>${project.build.directory}/jacoco-it.exec</destFile>
-                            <propertyName>failsafe.argLine</propertyName>
+                            <!--<propertyName>failsafe.argLine</propertyName> -->
+                            <propertyName>itCoverageAgent</propertyName>
                         </configuration>
                     </execution>
                     <!-- Integration test report -->
@@ -408,7 +426,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!--<plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-failsafe-plugin</artifactId>
               <version>2.22.2</version>
@@ -423,7 +441,7 @@
                   </goals>
                 </execution>
               </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
     <modules>
