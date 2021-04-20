@@ -339,7 +339,8 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-                    <!-- Integration test prep -->
+                    
+                    <!-- Failsafe <!-- Integration test prep 
                     <execution>
                         <id>pre-integration-test</id>
                         <phase>pre-integration-test</phase>
@@ -351,7 +352,7 @@
                             <propertyName>failsafe.argLine</propertyName>
                         </configuration>
                     </execution>
-                    <!-- Integration test report -->
+                    <!-- Integration test report 
                     <execution>
                         <id>post-integration-test</id>
                         <phase>post-integration-test</phase>
@@ -360,6 +361,28 @@
                         </goals>
                         <configuration>
                             <dataFile>${project.build.directory}/jacoco-it.exec</dataFile>
+                        </configuration>
+                    </execution>-->
+                    <execution>
+                        <id>before-integration-test-execution</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec</destFile>
+                            <propertyName>failsafe.jacoco.args</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>after-integration-test-execution</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
